@@ -32,7 +32,7 @@ public:
 
     virtual glm::mat4 GetModelMatrix(bool ignoreRotation = false, bool ignoreScale = false) const = 0;
     virtual glm::vec3 GetLocalPosition() const = 0;
-    virtual glm::vec3 GetWorldPosition() const = 0;
+    glm::vec3 GetWorldPosition() const;
 
 public:
     template<Entity_Skeleton_Based E>
@@ -57,6 +57,9 @@ public:
     bool HasParent() const;
     void RemoveParent();
     void RemoveChildren();
+
+    const Entity_Skeleton * ToSkeleton() const;
+    Entity_Skeleton * ToSkeleton();
 
     const std::vector<Entity_Skeleton *> & GetChildren() const;
     

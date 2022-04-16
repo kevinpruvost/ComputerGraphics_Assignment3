@@ -31,6 +31,7 @@ public:
      * @param meshId
     */
     Shader(const GLuint shaderId);
+    ~Shader() = default;
 
 public:
     GLuint Program() const;

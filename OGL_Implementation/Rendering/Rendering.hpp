@@ -10,7 +10,9 @@
 // Project includes
 #include "OGL_Implementation\Entity\Entity.hpp"
 #include "OGL_Implementation\Text\Text.hpp"
-#include "OGL_Implementation\Light\Light.hpp"
+#include "LightRendering.hpp"
+#include "ParticleSystemRendering.hpp"
+#include "Constants.hpp"
 
 /**
  * @brief Static class containing rendering utilities
@@ -44,4 +46,15 @@ public:
     // Text
     static void DrawText(Text2D & text);
     static void DrawText(Text3D & text);
+
+    static void RotateFonts();
+
+    // ParticleSystem
+    static void DrawParticleSystem(ParticleSystem_Base * particleSystem);
+
+private:
+    static void LoadShadersAndFonts();
+
+public:
+    static std::unordered_map<std::string, std::unique_ptr<Shader>> shaders;
 };

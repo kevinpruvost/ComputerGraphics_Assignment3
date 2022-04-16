@@ -90,7 +90,6 @@ public:
 
     // Entity_Skeleton abstract
     virtual glm::vec3 GetLocalPosition() const;
-    virtual glm::vec3 GetWorldPosition() const;
 
 public:
     Font font;

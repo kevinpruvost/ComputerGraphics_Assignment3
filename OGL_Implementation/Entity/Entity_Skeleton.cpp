@@ -21,6 +21,17 @@ Entity_Skeleton::~Entity_Skeleton()
     RemoveChildren();
 }
 
+glm::vec3 Entity_Skeleton::GetWorldPosition() const
+{
+    if (HasParent())
+    {
+        const glm::mat4 modelMatrix = GetModelMatrix();
+        const glm::vec3 position{ modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2] };
+        return position;
+    }
+    return GetLocalPosition();
+}
+
 bool Entity_Skeleton::HasChildren() const
 {
     return !__children.empty();
@@ -55,6 +66,16 @@ void Entity_Skeleton::RemoveChildren()
         }
         __children.clear();
     }
+}
+
+const Entity_Skeleton * Entity_Skeleton::ToSkeleton() const
+{
+    return dynamic_cast<const Entity_Skeleton *>(this);
+}
+
+Entity_Skeleton * Entity_Skeleton::ToSkeleton()
+{
+    return dynamic_cast<Entity_Skeleton *>(this);
 }
 
 const std::vector<Entity_Skeleton *> & Entity_Skeleton::GetChildren() const

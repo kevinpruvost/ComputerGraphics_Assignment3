@@ -16,9 +16,16 @@ static constexpr const glm::vec3 color = glm::vec3(0.1f, 0.95f, 0.1f);
 static constexpr const glm::vec3 color1 = glm::vec3(1.0f, 0.95f, 0.1f);
 static constexpr const glm::vec3 color2 = glm::vec3(0.1f, 0.95f, 1.0f);
 static constexpr const glm::vec3 color3 = glm::vec3(0.5f, 0.2f, 0.3f);
-static std::array<glm::vec3, 4> wireframeColors = { color, color1, color2, color3 };
 
 static std::unique_ptr<Rendering> s_Rendering(nullptr);
+
+static std::vector<Font> fonts;
+
+std::unordered_map<std::string, std::unique_ptr<Shader>> Rendering::shaders;
+
+// Display Mode
+std::array<glm::vec3, 4> WireframeColors = { color, color1, color2, color3 };
+RenderingMode DisplayMode = RenderingMode::FacesMode; // 0 = Point, 1 = Face, 2 = Wireframe, 3 = Face + Wireframe
 
 Rendering::Rendering()
 	: __textVAO{ 0 }
@@ -49,6 +56,8 @@ void Rendering::Init()
 {
 	s_Rendering.reset(new Rendering());
 	LightRendering::Init();
+	ParticleSystemRendering::Init();
+	LoadShadersAndFonts();
 }
 
 void Rendering::Refresh()
@@ -100,7 +109,7 @@ void Rendering::DrawWireframe(Entity & entity)
 	shader.SetUniformMatrix4f("model", model);
 
 	// use the same color for all points
-	shader.SetUniformFloat("ourColor", wireframeColors[0]);
+	shader.SetUniformFloat("ourColor", WireframeColors[0]);
 
 	glBindVertexArray(entity.GetMesh().facesVAO());
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -127,7 +136,7 @@ void Rendering::DrawVertices(Entity & entity)
 	shader.SetUniformMatrix4f("model", model);
 
 	// use the same color for all points
-	shader.SetUniformFloat("ourColor", wireframeColors[0]);
+	shader.SetUniformFloat("ourColor", WireframeColors[0]);
 
 	glBindVertexArray(entity.GetMesh().verticesVAO());
 	glDrawArrays(GL_POINTS, 0, entity.GetMesh().verticesNVert());
@@ -136,7 +145,7 @@ void Rendering::DrawVertices(Entity & entity)
 
 void Rendering::RotateWireframeColor()
 {
-	std::rotate(wireframeColors.begin(), wireframeColors.begin() + 1, wireframeColors.end());
+	std::rotate(WireframeColors.begin(), WireframeColors.begin() + 1, WireframeColors.end());
 }
 
 void Rendering::DrawText(Text2D & text)
@@ -267,4 +276,61 @@ void Rendering::DrawText(Text3D & text)
 	}
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Rendering::RotateFonts()
+{
+	std::rotate(fonts.begin(), fonts.begin() + 1, fonts.end());
+}
+
+void Rendering::DrawParticleSystem(ParticleSystem_Base * particleSystem)
+{
+	ParticleSystemRendering::DrawParticleSystem(particleSystem);
+}
+
+void Rendering::LoadShadersAndFonts()
+{
+	Font font1 = GenerateFont(Constants::Paths::arialFont);
+	Font font2 = GenerateFont(Constants::Paths::starFont);
+	Font font3 = GenerateFont(Constants::Paths::notesFont);
+
+	// Setting default font
+	SetDefaultFont(font1);
+
+	fonts.insert(fonts.begin(), { font1, font2, font3 });
+
+	// Build and compile our shader program
+	Shader lightShader = GenerateShader(Constants::Paths::lightShaderVertex, Constants::Paths::lightShaderFrag);
+	Shader pointShader = GenerateShader(Constants::Paths::pointShaderVertex, Constants::Paths::pointShaderFrag);
+	Shader faceShader = GenerateShader(Constants::Paths::faceShaderVertex, Constants::Paths::faceShaderFrag);
+	Shader wireframeShader = GenerateShader(Constants::Paths::wireframeShaderVertex, Constants::Paths::wireframeShaderFrag);
+	Shader text2DShader = GenerateShader(Constants::Paths::text2DShaderVertex, Constants::Paths::text2DShaderFrag);
+	Shader text3DShader = GenerateShader(Constants::Paths::text3DShaderVertex, Constants::Paths::text3DShaderFrag);
+	Shader particleShader = GenerateShader(Constants::Paths::particleShaderVertex, Constants::Paths::particleShaderFrag);
+
+	shaders.insert({Constants::Paths::lightShaderVertex, std::make_unique<Shader>(lightShader)});
+	shaders.insert({Constants::Paths::pointShaderVertex, std::make_unique<Shader>(pointShader)});
+	shaders.insert({Constants::Paths::faceShaderVertex, std::make_unique<Shader>(faceShader)});
+	shaders.insert({Constants::Paths::wireframeShaderVertex, std::make_unique<Shader>(wireframeShader)});
+	shaders.insert({Constants::Paths::text2DShaderVertex, std::make_unique<Shader>(text2DShader)});
+	shaders.insert({Constants::Paths::text3DShaderVertex, std::make_unique<Shader>(text3DShader)});
+	shaders.insert({Constants::Paths::particleShaderVertex, std::make_unique<Shader>(particleShader)});
+
+	// Setting default shaders
+	SetDefaultPointShader(pointShader);
+	SetDefaultFaceShader(faceShader);
+	SetDefaultWireframeShader(wireframeShader);
+	SetDefault2DTextShader(text2DShader);
+	SetDefault3DTextShader(text3DShader);
+	SetDefaultLightShader(lightShader);
+
+	pointShader.AddGlobalUbo(Constants::UBO::Ids::cameraProps, Constants::UBO::Names::cameraProps);
+	faceShader.AddGlobalUbo(Constants::UBO::Ids::cameraProps, Constants::UBO::Names::cameraProps);
+	wireframeShader.AddGlobalUbo(Constants::UBO::Ids::cameraProps, Constants::UBO::Names::cameraProps);
+	particleShader.AddGlobalUbo(Constants::UBO::Ids::cameraProps, Constants::UBO::Names::cameraProps);
+
+	faceShader.AddGlobalUbo(Constants::UBO::Ids::lights, Constants::UBO::Names::lights);
+
+	text2DShader.AddGlobalUbo(Constants::UBO::Ids::projection, Constants::UBO::Names::projection);
+	text3DShader.AddGlobalUbo(Constants::UBO::Ids::cameraProps, Constants::UBO::Names::cameraProps);
 }

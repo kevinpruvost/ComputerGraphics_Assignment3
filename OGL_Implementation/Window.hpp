@@ -27,7 +27,7 @@ public:
     * @param windowName
     * @return true if initialization has succeeded, false otherwise
     */
-    bool Init(const char * windowName = "Window", const char * iconPath = nullptr);
+    bool Initialize(const char * windowName, const char * iconPath = nullptr);
     /**
      * @brief Launches the window loop and the code contained in the lambda function.
      * @param lambda
@@ -60,6 +60,17 @@ public:
      * @return window focused 
     */
     bool GetWindowFocused() const;
+
+    /**
+     * @brief Initializes window and returns it
+     * @return window instance, nullptr if any errors occured
+    */
+    static Window * Init(const char * windowName, const char * iconPath = nullptr);
+    /**
+     * @brief Gets window instance
+     * @return window
+    */
+    static Window * Get();
 
 public:
     /**

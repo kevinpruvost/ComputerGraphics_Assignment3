@@ -16,7 +16,6 @@ layout (std140) uniform CameraProps
 	mat4 projection;
 };
 
-
 out vec3 ourColor;
 
 void main()

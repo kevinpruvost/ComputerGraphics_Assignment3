@@ -120,17 +120,6 @@ glm::vec3 Entity::GetLocalPosition() const
     return pos;
 }
 
-glm::vec3 Entity::GetWorldPosition() const
-{
-    if (HasParent())
-    {
-        const glm::mat4 modelMatrix = GetModelMatrix();
-        const glm::vec3 position{modelMatrix[3][0], modelMatrix[3][1], modelMatrix[3][2]};
-        return position;
-    }
-    return pos;
-}
-
 void SetDefaultPointShader(const Shader & shader)
 {
     defaultPointShader.reset(new Shader(shader.GetShaderDatabaseID()));

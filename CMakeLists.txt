@@ -3,7 +3,7 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Project Name
-project ("Assignment2")
+project ("Assignment3")
 
 # C++ Standard Version
 set(CMAKE_CXX_STANDARD 20)
@@ -45,6 +45,8 @@ file (GLOB ASSIGNMENT_SOURCES
     OGL_Implementation/Mesh/*.cpp
     OGL_Implementation/Shader/*.cpp
     OGL_Implementation/Entity/*.cpp
+    OGL_Implementation/Entity/ParticleSystem/*.cpp
+    OGL_Implementation/Entity/ParticleSystem/Spirals/*.cpp
     OGL_Implementation/Light/*.cpp
     OGL_Implementation/Rendering/*.cpp
     OGL_Implementation/Text/*.cpp
@@ -56,19 +58,22 @@ file (GLOB ASSIGNMENT_HEADERS
     OGL_Implementation/Mesh/*.hpp
     OGL_Implementation/Shader/*.hpp
     OGL_Implementation/Entity/*.hpp
+    OGL_Implementation/Entity/ParticleSystem/*.hpp
+    OGL_Implementation/Entity/ParticleSystem/*.inl
+    OGL_Implementation/Entity/ParticleSystem/Spirals/*.hpp
     OGL_Implementation/Entity/*.inl
     OGL_Implementation/Light/*.hpp
     OGL_Implementation/Rendering/*.hpp
     OGL_Implementation/Text/*.hpp
 )
 
-add_executable(Assignment2
+add_executable(Assignment3
     ${ASSIGNMENT_SOURCES}
     ${ASSIGNMENT_HEADERS}
 )
 
 # Linking libraries to Assignment2
-target_link_libraries(Assignment2 opengl32 glad glfw glm ImGui SOIL freetype
+target_link_libraries(Assignment3 opengl32 glad glfw glm ImGui SOIL freetype
 )
 
 #--------------------------------------------------------------------
@@ -79,13 +84,13 @@ if(MSVC)
 endif()
 
 # Including root directory & libraries directories
-target_include_directories(Assignment2 PUBLIC
+target_include_directories(Assignment3 PUBLIC
     ${PROJECT_SOURCE_DIR}
     $<INSTALL_INTERFACE:include>
 )
 
 # Installation Procedure
 install(
-    TARGETS Assignment2
+    TARGETS Assignment3
     CONFIGURATIONS ${CMAKE_CONFIGURATION_TYPES}
 )

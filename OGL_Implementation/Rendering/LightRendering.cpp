@@ -5,7 +5,7 @@
  * \author Kevin Pruvost (pruvostkevin0@gmail.com)
  * \date   April, 12 2022
  *********************************************************************/
-#include "Light.hpp"
+#include "LightRendering.hpp"
 
 // Project includes
 #include "Constants.hpp"
@@ -44,6 +44,12 @@ GLuint LightRendering::GetUboLights()
 void LightRendering::Init()
 {
     s_lightRendering.reset(new LightRendering());
+}
+
+const LightRendering & LightRendering::Get()
+{
+    if (s_lightRendering) return *s_lightRendering;
+    throw std::runtime_error("Trying to get LightRendering although it has not been initialized.\n");
 }
 
 void LightRendering::RefreshUbo()

@@ -17,6 +17,8 @@ static int HEIGHT = 800;
 static bool windowDimensionsChanged_ = false;
 static bool windowIsFocused_ = true;
 
+std::unique_ptr<Window> s_window(nullptr);
+
 Window::Window()
 	: window { nullptr }
 	, __initialized { GL_FALSE }
@@ -30,7 +32,7 @@ Window::~Window()
 	if (window) glfwDestroyWindow(window);
 }
 
-bool Window::Init(const char * windowName, const char * iconPath)
+bool Window::Initialize(const char * windowName, const char * iconPath)
 {
 	// Init GLFW
 	if ((__initialized = glfwInit()) == GL_FALSE)
@@ -140,4 +142,19 @@ bool Window::windowDimensionsHasChanged() const
 bool Window::GetWindowFocused() const
 {
 	return windowIsFocused_;
+}
+
+Window * Window::Init(const char * windowName, const char * iconPath)
+{
+	Window * window = new Window();
+	if (window->Initialize(windowName, iconPath))
+		s_window.reset(window);
+	else
+		delete window;
+	return s_window.get();
+}
+
+Window * Window::Get()
+{
+	return s_window.get();
 }

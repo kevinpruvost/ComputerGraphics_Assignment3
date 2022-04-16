@@ -77,13 +77,6 @@ glm::vec3 Text3D::GetLocalPosition() const
     return pos;
 }
 
-glm::vec3 Text3D::GetWorldPosition() const
-{
-    if (HasParent())
-        return pos + GetParent()->GetWorldPosition();
-    return pos;
-}
-
 void SetDefaultFont(const Font & font)
 {
     defaultFont.reset(new Font(font.GetFontDatabaseID()));

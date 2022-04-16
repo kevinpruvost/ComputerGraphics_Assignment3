@@ -6,6 +6,7 @@
  * \author Kevin Pruvost (pruvostkevin0@gmail.com)
  * \date   April, 04 2022
  *********************************************************************/
+#pragma once
 
 namespace Constants
 {
@@ -32,17 +33,11 @@ constexpr const char * text2DShaderVertex    = "resources/Shaders/text2D.vert.gl
 constexpr const char * text2DShaderFrag      = "resources/Shaders/text2D.frag.glsl";
 constexpr const char * text3DShaderVertex    = "resources/Shaders/text3D.vert.glsl";
 constexpr const char * text3DShaderFrag      = "resources/Shaders/text3D.frag.glsl";
+
+constexpr const char * particleShaderVertex = "resources/Shaders/particle.vert.glsl";
+constexpr const char * particleShaderFrag = "resources/Shaders/particle.frag.glsl";
 // Planets
-constexpr const char * earth   = "resources/Textures/earth.jpg";
-constexpr const char * mercury = "resources/Textures/mercury.jpg";
-constexpr const char * sun     = "resources/Textures/sun.jpg";
-constexpr const char * moon    = "resources/Textures/moon.jpg";
-constexpr const char * neptune = "resources/Textures/neptune.jpg";
-constexpr const char * uranus  = "resources/Textures/uranus.jpg";
-constexpr const char * venus   = "resources/Textures/venus.jpg";
-constexpr const char * saturn  = "resources/Textures/saturn.jpg";
-constexpr const char * jupiter = "resources/Textures/jupiter.jpg";
-constexpr const char * mars    = "resources/Textures/mars.jpg";
+constexpr const char * star = "resources/Textures/Star.bmp";
 // Fonts
 constexpr const char * arialFont = "resources/Fonts/arial.ttf";
 constexpr const char * starFont  = "resources/Fonts/star.ttf";
