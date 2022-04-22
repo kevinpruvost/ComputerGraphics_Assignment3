@@ -38,28 +38,8 @@ void ParticleSystem_Base::Update()
 
     OnUpdate();
 
-    // Spawn process
     _deltaTime = Window::Get()->DeltaTime();
-
-    __deltaTimeCounter -= _deltaTime;
-    while (__deltaTimeCounter <= 0.000f)
-    {
-        _deltaTime -= 1.0f / frequency;
-        ResetCounter();
-        if (__particles.size() < maxParticles)
-        {
-            const auto newParticles = SpawnParticle();
-            for (auto & particle : newParticles)
-            {
-                particle->UpdateLifeSpan(_deltaTime);
-                __particles.emplace_back(particle);
-            }
-        }
-        __deltaTimeCounter -= _deltaTime;
-    }
-
-    _deltaTime = Window::Get()->DeltaTime();
-    for (__particleIte = __particles.begin(); __particleIte != __particles.end(); ++__particleIte)
+    for (__particleIte = __particles.begin(); __particleIte != __particles.end();)
     {
         std::unique_ptr<Particle_Base> & particle = *__particleIte;
         particle->UpdateLifeSpan(_deltaTime);
@@ -69,6 +49,27 @@ void ParticleSystem_Base::Update()
             continue;
         }
         UpdateParticle(&(*particle));
+        ++__particleIte;
+    } 
+
+    // Spawn process
+    __deltaTimeCounter -= _deltaTime;
+    while (__deltaTimeCounter <= 0.000f)
+    {
+        _deltaTime = -__deltaTimeCounter;
+        ResetCounter();
+        if (__particles.size() < maxParticles)
+        {
+            const auto newParticles = SpawnParticle();
+            for (auto & particle : newParticles)
+            {
+                particle->UpdateLifeSpan(_deltaTime);
+                UpdateParticle(particle);
+                __particles.emplace_back(particle);
+            }
+        }
+        _deltaTime -= 1.0f / frequency;
+        __deltaTimeCounter -= _deltaTime;
     }
 }
 
