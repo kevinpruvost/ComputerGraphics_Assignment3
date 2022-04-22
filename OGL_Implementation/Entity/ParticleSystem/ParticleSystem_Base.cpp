@@ -18,13 +18,14 @@ ParticleSystem_Base::ParticleSystem_Base(const Shader & shaderPoint_, const Shad
     , lifeSpan{ lifeSpan_ }
     , frequency{ frequency_ }
     , maxParticles{ maxParticles_ }
-    , __turnedOn{ false }
+    , __turnedOn{ true }
     , __particleIte{ __particles.end() }
     , shaderPoint{ shaderPoint_ }
     , shaderWireframe{ shaderWireframe_ }
     , shaderParticleSystem{ shaderPS_ }
     , displayMode{ RenderingMode::FacesMode }
 {
+    ResetCounter();
 }
 
 ParticleSystem_Base::~ParticleSystem_Base()
@@ -33,31 +34,41 @@ ParticleSystem_Base::~ParticleSystem_Base()
 
 void ParticleSystem_Base::Update()
 {
-    // Spawn process
-    const float deltaTime = Window::Get()->deltaTime();
+    if (!__turnedOn) return;
 
-    int i = 0;
-    for (__particleIte = __particles.begin(); __particleIte != __particles.end();)
+    OnUpdate();
+
+    // Spawn process
+    _deltaTime = Window::Get()->DeltaTime();
+
+    __deltaTimeCounter -= _deltaTime;
+    while (__deltaTimeCounter <= 0.000f)
     {
-        if (__particleIte->get()->GetLifeSpan() <= FLT_EPSILON)
+        _deltaTime -= 1.0f / frequency;
+        ResetCounter();
+        if (__particles.size() < maxParticles)
+        {
+            const auto newParticles = SpawnParticle();
+            for (auto & particle : newParticles)
+            {
+                particle->UpdateLifeSpan(_deltaTime);
+                __particles.emplace_back(particle);
+            }
+        }
+        __deltaTimeCounter -= _deltaTime;
+    }
+
+    _deltaTime = Window::Get()->DeltaTime();
+    for (__particleIte = __particles.begin(); __particleIte != __particles.end(); ++__particleIte)
+    {
+        std::unique_ptr<Particle_Base> & particle = *__particleIte;
+        particle->UpdateLifeSpan(_deltaTime);
+        if (particle->GetLifeSpan() <= FLT_EPSILON)
         {
             RemoveParticle();
             continue;
         }
-        std::unique_ptr<Particle_Base> & particle = *__particleIte;
-        particle->UpdateLifeSpan(deltaTime);
         UpdateParticle(&(*particle));
-        ++__particleIte;
-    }
-
-    __deltaTimeCounter -= deltaTime;
-    if (__deltaTimeCounter <= 0.000f)
-    {
-        ResetCounter();
-        if (__particles.size() < maxParticles)
-        {
-            __particles.emplace_back(SpawnParticle());
-        }
     }
 }
 
@@ -107,11 +118,40 @@ void ParticleSystem_Base::Start()
 {
     __turnedOn = true;
     ResetCounter();
+    OnStart();
+}
+
+void ParticleSystem_Base::Reset()
+{
+    __particles.clear();
+    OnReset();
 }
 
 void ParticleSystem_Base::Stop()
 {
     __turnedOn = false;
+    OnStop();
+}
+
+bool ParticleSystem_Base::isStopped() const
+{
+    return !__turnedOn;
+}
+
+void ParticleSystem_Base::OnUpdate()
+{
+}
+
+void ParticleSystem_Base::OnStart()
+{
+}
+
+void ParticleSystem_Base::OnStop()
+{
+}
+
+void ParticleSystem_Base::OnReset()
+{
 }
 
 const std::vector<std::unique_ptr<Particle_Base>> & ParticleSystem_Base::GetParticles() const

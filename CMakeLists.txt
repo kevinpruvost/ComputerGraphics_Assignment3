@@ -76,6 +76,9 @@ add_executable(Assignment3
 target_link_libraries(Assignment3 opengl32 glad glfw glm ImGui SOIL freetype
 )
 
+# Profiling
+set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/PROFILE")
+
 #--------------------------------------------------------------------
 # Hide the console window in visual studio projects - Release
 #--------------------------------------------------------------------

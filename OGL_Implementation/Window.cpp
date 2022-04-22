@@ -11,6 +11,10 @@
 #include "OGL_Implementation\DebugInfo\Log.hpp"
 #include <SOIL.h>
 
+// C++ includes
+#include <thread>
+#include <chrono>
+
 // Window dimensions
 static int WIDTH = 1200;
 static int HEIGHT = 800;
@@ -22,6 +26,8 @@ std::unique_ptr<Window> s_window(nullptr);
 Window::Window()
 	: window { nullptr }
 	, __initialized { GL_FALSE }
+	, __deltaTimeMultiplier{ 1.0f }
+	, fpsCap{ 0 }
 {
 }
 
@@ -106,6 +112,17 @@ bool Window::Loop(const std::function<bool()> & lambda)
 		__deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
+		// FPS Capping
+		if (fpsCap != 0)
+		{
+			while (__deltaTime <= 1.0f / fpsCap)
+			{
+				GLfloat currentFrame = glfwGetTime();
+				__deltaTime += currentFrame - lastFrame;
+				lastFrame = currentFrame;
+			}
+		}
+
 		InputCallbackCorrection();
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
@@ -122,7 +139,9 @@ bool Window::Loop(const std::function<bool()> & lambda)
 	return true;
 }
 
-float Window::deltaTime() const { return __deltaTime; }
+float Window::DeltaTime() const { return __deltaTime * __deltaTimeMultiplier; }
+
+float Window::DeltaTimeNoMultiplier() const { return __deltaTime; }
 
 int Window::windowWidth() const
 {
@@ -142,6 +161,16 @@ bool Window::windowDimensionsHasChanged() const
 bool Window::GetWindowFocused() const
 {
 	return windowIsFocused_;
+}
+
+void Window::SetTimeMultiplier(const float newMult)
+{
+	__deltaTimeMultiplier = newMult;
+}
+
+const float & Window::GetTimeMultiplier() const
+{
+	return __deltaTimeMultiplier;
 }
 
 Window * Window::Init(const char * windowName, const char * iconPath)

@@ -9,7 +9,6 @@
 
 Particle_Spiral::Particle_Spiral(const float lifeSpan, const glm::vec3 & pos_, const glm::vec3 & scale_, const glm::vec4 & color_)
     : Particle_Base(lifeSpan, pos_, scale_)
-    , theta{ 0.0f }
 {
     color = color_;
 }

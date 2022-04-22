@@ -37,9 +37,15 @@ public:
     /**
      * @brief Calculates period between the current frame & the last frame
      * in seconds
+     * @return Delta Time from last frame * delta time multiplier
+    */
+    float DeltaTime() const;
+    /**
+     * @brief Calculates period between the current frame & the last frame
+     * in seconds
      * @return Delta Time from last frame
     */
-    float deltaTime() const;
+    float DeltaTimeNoMultiplier() const;
     /**
      * @brief Returns Window current Width
      * @return window width 
@@ -60,6 +66,16 @@ public:
      * @return window focused 
     */
     bool GetWindowFocused() const;
+    /**
+     * @brief Sets a delta time multiplier
+     * @param newMult 
+    */
+    void SetTimeMultiplier(const float newMult);
+    /**
+     * @brief Sets a delta time multiplier
+     * @param newMult
+    */
+    const float & GetTimeMultiplier() const;
 
     /**
      * @brief Initializes window and returns it
@@ -73,11 +89,11 @@ public:
     static Window * Get();
 
 public:
-    /**
-     * @brief GLFW Window
-    */
+    /// @brief GLFW Window
     GLFWwindow * window;
+    /// @brief FPS cap (0 means no cap)
+    unsigned int fpsCap;
 private:
     GLboolean __initialized;
-    float __deltaTime;
+    float __deltaTime, __deltaTimeMultiplier;
 };

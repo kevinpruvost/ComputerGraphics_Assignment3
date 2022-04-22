@@ -27,8 +27,13 @@ public:
     ParticleSystem_Spiral(const Shader & shaderPoint_, const Shader & shaderWireframe_, const Shader & shaderPS_);
     ~ParticleSystem_Spiral();
 
-    void UpdateParticle(Particle_Base * particle);
-    Particle_Base * SpawnParticle();
+    void UpdateParticle(Particle_Base * particle) override;
+    std::vector<Particle_Base *> SpawnParticle() override;
+
+    void OnUpdate() override;
+    void OnStart() override;
+    void OnStop() override;
+    void OnReset() override;
 
     Particle_Base::ParticlePropertiesStyle GetParticlePropertiesStyle() const;
 
@@ -43,4 +48,5 @@ public:
     float alpha, beta;
 
 private:
+    float __theta;
 };

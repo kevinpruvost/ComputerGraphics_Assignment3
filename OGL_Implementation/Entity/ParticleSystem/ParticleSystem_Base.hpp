@@ -32,11 +32,19 @@ public:
 protected:
     inline void RemoveParticle();
     virtual void UpdateParticle(Particle_Base * particle) = 0;
-    virtual Particle_Base * SpawnParticle() = 0;
+    virtual std::vector<Particle_Base *> SpawnParticle() = 0;
 
 public:
     void Start();
+    void Reset();
     void Stop();
+
+    bool isStopped() const;
+
+    virtual void OnUpdate();
+    virtual void OnStart();
+    virtual void OnStop();
+    virtual void OnReset();
 
     const std::vector<std::unique_ptr<Particle_Base>> & GetParticles() const;
 
@@ -74,6 +82,8 @@ public:
 
 protected:
     std::vector<std::unique_ptr<Particle_Base>> __particles;
+
+    float _deltaTime;
 private:
     bool __turnedOn;
     float __deltaTimeCounter;

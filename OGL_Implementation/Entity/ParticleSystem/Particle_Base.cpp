@@ -11,6 +11,8 @@ Particle_Base::Particle_Base(const float lifeSpan, const glm::vec3 & pos_, const
     : __lifeSpan{ lifeSpan }
     , pos{ pos_ }
     , scale{ scale_ }
+    , speed{ 0.0f }
+    , acceleration{ 0.0f }
 {
 }
 
@@ -40,7 +42,7 @@ glm::vec3 Particle_Base::GetLocalPosition() const
 
 void Particle_Base::UpdateLifeSpan(const float deltaTime)
 {
-    __lifeSpan -= deltaTime;
+    if (deltaTime > 0.0f) __lifeSpan -= deltaTime;
 }
 
 float Particle_Base::GetLifeSpan() const
@@ -56,4 +58,9 @@ const Particle_Base * Particle_Base::ToBase() const
 Particle_Base * Particle_Base::ToBase()
 {
     return dynamic_cast<Particle_Base *>(this);
+}
+
+void Particle_Base::SetMovement(const glm::vec3 & speed_, const glm::vec3 & acceleration_)
+{
+    speed = speed_; acceleration = acceleration_;
 }

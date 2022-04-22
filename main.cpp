@@ -68,8 +68,11 @@ int main()
 		*Rendering::shaders.at(Constants::Paths::particleShaderVertex)
 	);
 	spiralSystem.texture = starTexture;
+	spiralSystem.lifeSpan = 15.0f;
+	spiralSystem.speed = 2.0f;
+	spiralSystem.maxParticles = 500;
 
-	Camera camera(window->windowWidth(), window->windowHeight(), 0.0f, 0.0f, -20.0f);
+	Camera camera(window->windowWidth(), window->windowHeight(), 0.0f, 0.0f, -50.0f);
 	camera.MovementSpeed *= 5.0f;
 	mainCamera = &camera;
 
@@ -80,14 +83,16 @@ int main()
 	bool enableGui = true;
 	gui.AddCallback([&]() {
 		const float width = 320.0f;
-		const float height = 400.0f;
+		const float height = 430.0f;
 		ImGui::SetNextWindowSize({ width, height }, ImGuiCond_::ImGuiCond_Always);
 		ImGui::SetNextWindowPos(
 			{ImGui::GetIO().DisplaySize.x - 20.0f - width, 20.0f},
 			ImGuiCond_::ImGuiCond_Always);
 		ImGui::Begin("Object Properties:");
 
-		ImGui::Text(std::format("FPS: {}", GetFpsCount(window->deltaTime(), 0.5f)).c_str());
+		ImGui::Text(std::format("FPS: {}", GetFpsCount(window->DeltaTimeNoMultiplier(), 0.5f)).c_str());
+		ImGui::SliderInt("FPS cap", (int *)&window->fpsCap, 0, 60);
+		ImGui::SliderFloat("Time Multiplier", const_cast<float *>(&window->GetTimeMultiplier()), 0.0f, 5.0f);
 		ImGui::Checkbox("Enable/Disable GUI (Press T)", &enableGui);
 
 		int displayMode = 0;
@@ -107,7 +112,6 @@ int main()
 				case 3:
 					DisplayMode = RenderingMode::FacesAndWireframeMode; break;
 			}
-
 		}
 
 		ImGui::SliderFloat3("Position", glm::value_ptr(spiralSystem.pos), 0.0f, 5.0f);
@@ -125,6 +129,16 @@ int main()
 		ImGui::Combo("Spiral Formula", (int *)&spiralSystem.spiralType, spiralFormulaModeItems, IM_ARRAYSIZE(spiralFormulaModeItems));
 
 		ImGui::LabelText("Entities Count", "%d\n", spiralSystem.GetParticles().size());
+
+		if (ImGui::Button(spiralSystem.isStopped() ? "Start" : "Stop", { width / 2.5f, 50.0f}))
+		{
+			spiralSystem.isStopped() ? spiralSystem.Start() : spiralSystem.Stop();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Reset", { width / 2.5f, 50.0f }))
+		{
+			spiralSystem.Reset();
+		}
 
 		ImGui::End();
 		return true;
@@ -165,17 +179,17 @@ int main()
 		{
 			// Camera movement
 			if (window->key(GLFW_KEY_W) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Forward, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Forward, window->DeltaTime());
 			if (window->key(GLFW_KEY_S) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Backward, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Backward, window->DeltaTime());
 			if (window->key(GLFW_KEY_A) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Left, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Left, window->DeltaTime());
 			if (window->key(GLFW_KEY_D) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Right, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Right, window->DeltaTime());
 			if (window->key(GLFW_KEY_SPACE) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Up, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Up, window->DeltaTime());
 			if (window->key(GLFW_KEY_LEFT_CONTROL) == InputKey::Pressed)
-				camera.ProcessKeyboard(Camera_Movement::Down, window->deltaTime());
+				camera.ProcessKeyboard(Camera_Movement::Down, window->DeltaTime());
 
 			// Camera Rotation
 			if (window->mouseHasMoved())

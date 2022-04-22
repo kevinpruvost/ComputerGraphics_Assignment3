@@ -39,9 +39,21 @@ public:
     template<Particle_Based PType>
     PType * Cast();
 
+    /**
+     * @brief Sets all movement variables
+     * @param direction
+     * @param speed
+     * @param acceleration
+    */
+    void SetMovement(const glm::vec3 & speed_, const glm::vec3 & acceleration_);
+
 public:
     glm::vec3 pos;
-    glm::vec3 scale;
+    const glm::vec3 scale;
+
+    // Movement
+    glm::vec3 speed;
+    glm::vec3 acceleration;
 
 public:
     // Conditional Properties
