@@ -15,7 +15,8 @@
 
 ParticleSystem_Spiral::ParticleSystem_Spiral(const Shader & shaderPoint_, const Shader & shaderWireframe_, const Shader & shaderPS_)
     : ParticleSystem_Base(shaderPoint_, shaderWireframe_, shaderPS_, 5.0f, 10.0f, 50)
-    , speed{ 1.0f }
+    , polarSpeed{ 1.0f }
+    , particleSpeed{ 1.0f }
     , spiralType{ SpiralType::ArchimedesSpiral }
     , alpha{ 1.0f }
     , beta{ 1.0f }
@@ -37,7 +38,10 @@ void ParticleSystem_Spiral::UpdateParticle(Particle_Base * particle_)
     Particle_Spiral & particle = *particle_->Cast<Particle_Spiral>();
 
     if (glm::length(particle.acceleration) > FLT_EPSILON)
+    {
         particle.speed += _deltaTime * particle.acceleration;
+        particle.acceleration += _deltaTime * particle.acceleration * 0.2f;
+    }
     particle.pos += particle.speed * _deltaTime;
 }
 
@@ -54,25 +58,25 @@ std::vector<Particle_Base *> ParticleSystem_Spiral::SpawnParticle()
                 1.0f  // A
             }));
 
-            glm::vec3 speedP = glm::normalize(CalculateArchimedesSpiral(__theta, alpha, beta));
-            particle->SetMovement(speedP * speed * 0.1f, glm::vec3(0.0f));
+            glm::vec3 speedP = glm::normalize(CalculateArchimedesSpiral(__theta, 1.0f, 1.0f));
+            particle->SetMovement(speedP * particleSpeed * 0.1f, glm::vec3(0.0f));
     },
         [&]() { // Fermat Spiral
-            glm::vec3 speedP = glm::normalize(CalculateFermatSpiral(__theta, alpha));
+            glm::vec3 speedP = glm::normalize(CalculateFermatSpiral(__theta, 1.0f));
             auto & particle1 = newParticles.emplace_back(new Particle_Spiral(lifeSpan, pos, scale, {
                 (100.0f + rand() % 255) / 255.0f, // R
                 (100.0f + rand() % 255) / 255.0f, // G
                 (100.0f + rand() % 255) / 255.0f, // B
                 1.0f  // A
             }));
-            particle1->SetMovement(speedP * speed * 0.1f, glm::vec3(0.0f));
+            particle1->SetMovement(speedP * particleSpeed * 0.1f, glm::vec3(0.0f));
             auto & particle2 = newParticles.emplace_back(new Particle_Spiral(lifeSpan, pos, scale, {
                 (100.0f + rand() % 255) / 255.0f, // R
                 (100.0f + rand() % 255) / 255.0f, // G
                 (100.0f + rand() % 255) / 255.0f, // B
                 1.0f  // A
             }));
-            particle2->SetMovement(-speedP * speed * 0.1f, glm::vec3(0.0f));
+            particle2->SetMovement(-speedP * particleSpeed * 0.1f, glm::vec3(0.0f));
     },
         [&]() { // Logarithmic Spiral
             auto & particle = newParticles.emplace_back(new Particle_Spiral(lifeSpan, pos, scale, {
@@ -83,11 +87,12 @@ std::vector<Particle_Base *> ParticleSystem_Spiral::SpawnParticle()
             }));
 
             glm::vec3 speedP = CalculateLogSpiral(__theta, alpha, beta);
-            particle->SetMovement(speedP * speed * 0.1f, glm::vec3(0.0f));
+            particle->SetMovement(speedP * particleSpeed * 0.01f, glm::vec3(0.0f));
+            particle->acceleration = particle->speed;
         }
     };
     lambdasUpdatePosition[spiralType]();
-    __theta += 1.0f / frequency;
+    __theta += 1.0f / frequency * polarSpeed;
     return newParticles;
 }
 

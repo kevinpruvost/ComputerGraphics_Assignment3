@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Assignment 2 of FCG: Class Members - Functions</title>
+<title>Assignment 3 of FCG: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="tsinghua_icon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Assignment 2 of FCG
+   <div id="projectname">Assignment 3 of FCG
    </div>
-   <div id="projectbrief">Fundamentals of Computer Graphics - Assignment 2: Planets Rotation</div>
+   <div id="projectbrief">Fundamentals of Computer Graphics - Assignment 3: Stars Rotation</div>
   </td>
  </tr>
  </tbody>
@@ -82,12 +82,18 @@ $(function() {
 <li>Camera()
 : <a class="el" href="class_camera.html#ac20c52b1e3f3eea0410521303a52b705">Camera</a>
 </li>
+<li>Cast()
+: <a class="el" href="class_particle___base.html#aea7d112dec2540b1bc24180e7406ff06">Particle_Base</a>
+</li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
-<li>deltaTime()
-: <a class="el" href="class_window.html#a1e49c457fd949a28d70beb0c705dc06b">Window</a>
+<li>DeltaTime()
+: <a class="el" href="class_window.html#ae3f4771377d7ccb7961b4e92fc737e03">Window</a>
+</li>
+<li>DeltaTimeNoMultiplier()
+: <a class="el" href="class_window.html#a4a33a87ab8ce58f854819ccacd1f3158">Window</a>
 </li>
 <li>DrawGUI()
 : <a class="el" href="class_g_u_i.html#aa3b301148fd719dc5e5dfaa7109719cf">GUI</a>
@@ -122,6 +128,9 @@ $(function() {
 <li>GenerateTexture()
 : <a class="el" href="class_texture.html#a79379938bc77406f753d0b3839863ada">Texture</a>
 </li>
+<li>Get()
+: <a class="el" href="class_window.html#ae287a7a4bdac8d3ebe1a6300b3605bce">Window</a>
+</li>
 <li>GetCharacters()
 : <a class="el" href="class_font.html#a0dc7c6a504de73c0d7811d5e4a5ca451">Font</a>
 , <a class="el" href="class_font___base.html#a238c7159018be3330f6dc2fc522f3f5e">Font_Base</a>
@@ -145,10 +154,16 @@ $(function() {
 <li>GetHeight()
 : <a class="el" href="class_texture.html#a289701837e23c9272509f377524ee8f2">Texture</a>
 </li>
+<li>GetLifeSpan()
+: <a class="el" href="class_particle___base.html#a4624d4184682210a45f394e6f49e7636">Particle_Base</a>
+</li>
 <li>GetModelMatrix()
 : <a class="el" href="class_entity.html#ae6024bb6b03c11e30304324437e3c371">Entity</a>
 , <a class="el" href="class_point_light.html#a5d9bbc7473d3df7b830cdf1b88d247dd">PointLight</a>
 , <a class="el" href="class_text3_d.html#a78bf371a2348eff83e2af3c3acdb31b1">Text3D</a>
+</li>
+<li>GetParticles()
+: <a class="el" href="class_particle_system___base.html#a979d6d17dc889e8aaa6e0741e198e197">ParticleSystem_Base</a>
 </li>
 <li>GetProjectionMatrix()
 : <a class="el" href="class_camera.html#ab0a4bf5a65d45f25529e3cffda1c361b">Camera</a>
@@ -158,6 +173,9 @@ $(function() {
 </li>
 <li>GetTexture()
 : <a class="el" href="class_texture.html#a69e712298a630fabf4d21727fb6407b3">Texture</a>
+</li>
+<li>GetTimeMultiplier()
+: <a class="el" href="class_window.html#a251c448f4f5529ac14bf1a0d646bc783">Window</a>
 </li>
 <li>GetViewMatrix()
 : <a class="el" href="class_camera.html#affa333055635aed96518c4c66be9a70c">Camera</a>
@@ -187,10 +205,16 @@ $(function() {
 <li>Init()
 : <a class="el" href="class_input.html#ac5bb7a9133102be65e1d2227981c4317">Input</a>
 , <a class="el" href="class_rendering.html#af8755faf53cde713daa20130409086fc">Rendering</a>
-, <a class="el" href="class_window.html#a8f3cb89d3d610efc7bafe1029a7ead59">Window</a>
+, <a class="el" href="class_window.html#a62bd834eb4a4d9fefc6248c6707dd303">Window</a>
 </li>
 <li>InitFreeType()
 : <a class="el" href="class_font___base.html#ae0431d17901b06585edcf244302a7944">Font_Base</a>
+</li>
+<li>Initialize()
+: <a class="el" href="class_window.html#a86885912ae4ff9c4b408deaaf1804693">Window</a>
+</li>
+<li>isStopped()
+: <a class="el" href="class_particle_system___base.html#a15a4bd74a3ffdde61ba0e76a4d394fc3">ParticleSystem_Base</a>
 </li>
 </ul>
 
@@ -251,6 +275,22 @@ $(function() {
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>OnReset()
+: <a class="el" href="class_particle_system___base.html#ac9a0ac0f2fbd799f88db34b670635baa">ParticleSystem_Base</a>
+, <a class="el" href="class_particle_system___spiral.html#a947eb56758ca26bfb685f4b7ac7d23b8">ParticleSystem_Spiral</a>
+</li>
+<li>OnStart()
+: <a class="el" href="class_particle_system___base.html#aac1a428a3653c4e8d38e4341c75ec1e3">ParticleSystem_Base</a>
+, <a class="el" href="class_particle_system___spiral.html#aa86dfc6b19af0bb306d4610ffe04f4d6">ParticleSystem_Spiral</a>
+</li>
+<li>OnStop()
+: <a class="el" href="class_particle_system___base.html#abc006583a8a100b44987b7aae2c6e213">ParticleSystem_Base</a>
+, <a class="el" href="class_particle_system___spiral.html#a03a2c8577e7a34c6940742d81950e59c">ParticleSystem_Spiral</a>
+</li>
+<li>OnUpdate()
+: <a class="el" href="class_particle_system___base.html#a6ff9fc23c30270f8847dfd28f7a9a989">ParticleSystem_Base</a>
+, <a class="el" href="class_particle_system___spiral.html#a5a11bc7b3eb6b74a173900514317bef6">ParticleSystem_Spiral</a>
+</li>
 <li>OpenGL_Timer()
 : <a class="el" href="class_open_g_l___timer.html#a50de9745c000e30faa2e8b22e4bd5fe7">OpenGL_Timer</a>
 </li>
@@ -287,6 +327,9 @@ $(function() {
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>Reset()
+: <a class="el" href="class_particle_system___base.html#a6c27fcf2a6b705f494acebd7963d6b44">ParticleSystem_Base</a>
+</li>
 <li>Reshape()
 : <a class="el" href="class_camera.html#a5cbdaa63be8c35b74d296b6c1e39a83f">Camera</a>
 </li>
@@ -309,6 +352,12 @@ $(function() {
 <li>SetFov()
 : <a class="el" href="class_camera.html#ae92fbea0de8c0c53b72f21a5822b0e6a">Camera</a>
 </li>
+<li>SetMovement()
+: <a class="el" href="class_particle___base.html#a5fe5b55a235c4c02f80c7ea7323c2177">Particle_Base</a>
+</li>
+<li>SetTimeMultiplier()
+: <a class="el" href="class_window.html#aabaa40fab78bb4b50aa84be94f178c6c">Window</a>
+</li>
 <li>SetWindowDimensions()
 : <a class="el" href="class_camera.html#a302871e554a91289d0a4133fc36b5b91">Camera</a>
 </li>
@@ -323,6 +372,10 @@ $(function() {
 </li>
 <li>Start()
 : <a class="el" href="class_open_g_l___timer.html#a3a15579ec4bcf48033b65fd64163ea38">OpenGL_Timer</a>
+, <a class="el" href="class_particle_system___base.html#ab9781c04e37b4dff920fa2b9d67ac3ca">ParticleSystem_Base</a>
+</li>
+<li>Stop()
+: <a class="el" href="class_particle_system___base.html#a17f5fa2328e9d760f96a6d406e695ff6">ParticleSystem_Base</a>
 </li>
 </ul>
 
@@ -334,6 +387,12 @@ $(function() {
 <li>Text3D()
 : <a class="el" href="class_text3_d.html#a02f0b8cff477e817126866b320d15694">Text3D</a>
 </li>
+<li>ToBase()
+: <a class="el" href="class_particle___base.html#ad94a922e28a51324f353da28e6d56f45">Particle_Base</a>
+</li>
+<li>ToParticleSystemBase()
+: <a class="el" href="class_particle_system___base.html#ae90a325c513b455d07cdd35e241505e4">ParticleSystem_Base</a>
+</li>
 <li>TryLoad()
 : <a class="el" href="class_obj.html#addee8e85995bc3289d00c7518a6e436b">Obj</a>
 </li>
@@ -343,6 +402,9 @@ $(function() {
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>updateCameraVectors()
 : <a class="el" href="class_camera.html#ad424b8b92e580508caf21337b69b93fa">Camera</a>
+</li>
+<li>UpdateLifeSpan()
+: <a class="el" href="class_particle___base.html#ac2b182aa9a9534e0e7f2d0ec59da5908">Particle_Base</a>
 </li>
 <li>Use()
 : <a class="el" href="class_shader___base.html#a61f46679081aac37ec949f2f19c7ed19">Shader_Base</a>

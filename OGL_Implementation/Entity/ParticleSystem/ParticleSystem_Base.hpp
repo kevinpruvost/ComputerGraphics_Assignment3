@@ -29,26 +29,63 @@ public:
     virtual Particle_Base::ParticlePropertiesStyle GetParticlePropertiesStyle() const = 0;
 
     void Update();
+
 protected:
     inline void RemoveParticle();
     virtual void UpdateParticle(Particle_Base * particle) = 0;
     virtual std::vector<Particle_Base *> SpawnParticle() = 0;
 
 public:
+    /// @brief Starts particle emission
     void Start();
+    /// @brief Resets particle emission
     void Reset();
+    /// @brief Stops particle emission
     void Stop();
 
+    /**
+     * @brief Returns if particle emission is stopped
+     * @return stopped
+    */
     bool isStopped() const;
 
+    /**
+     * @brief Virtual Callback called at the start of Update(),
+     * to rewrite in children classes
+    */
     virtual void OnUpdate();
+    /**
+     * @brief Virtual Callback called at the start of Start(),
+     * to rewrite in children classes
+    */
     virtual void OnStart();
+    /**
+     * @brief Virtual Callback called at the start of Stop(),
+     * to rewrite in children classes
+    */
     virtual void OnStop();
+    /**
+     * @brief Virtual Callback called at the start of Reset(),
+     * to rewrite in children classes
+    */
     virtual void OnReset();
 
+    /**
+     * @brief Returns every particle currently emitted
+     * @return particles
+    */
     const std::vector<std::unique_ptr<Particle_Base>> & GetParticles() const;
 
+    /**
+     * @brief Cast to ParticleSystem_Base (const)
+     * @return ptr to self
+    */
     const ParticleSystem_Base * ToParticleSystemBase() const;
+
+    /**
+     * @brief Cast to ParticleSystem_Base (mutable)
+     * @return ptr to self
+    */
     ParticleSystem_Base * ToParticleSystemBase();
 
 protected:

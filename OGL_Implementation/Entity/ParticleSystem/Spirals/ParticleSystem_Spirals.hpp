@@ -9,10 +9,12 @@
 
 // Project includes
 #include "Particle_Spirals.hpp"
-
 #include "../ParticleSystem_Base.hpp"
 #include "../ParticleSystemGeometry.hpp"
 
+/**
+ * @brief Particle System based on Spirals (Archimedes, Fermat & Logarithmic)
+*/
 class ParticleSystem_Spiral : public ParticleSystem_Base
 {
 public:
@@ -40,8 +42,10 @@ public:
 private:
 
 public:
-    /// @brief Speed
-    float speed;
+    /// @brief Polar Speed
+    float polarSpeed;
+    /// @brief Particle
+    float particleSpeed;
     /// @brief Spiral Type
     SpiralType spiralType;
 

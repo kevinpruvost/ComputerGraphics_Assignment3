@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['deltatime_242',['deltaTime',['../class_window.html#a1e49c457fd949a28d70beb0c705dc06b',1,'Window']]],
-  ['drawgui_243',['DrawGUI',['../class_g_u_i.html#aa3b301148fd719dc5e5dfaa7109719cf',1,'GUI']]]
+  ['deltatime_318',['DeltaTime',['../class_window.html#ae3f4771377d7ccb7961b4e92fc737e03',1,'Window']]],
+  ['deltatimenomultiplier_319',['DeltaTimeNoMultiplier',['../class_window.html#a4a33a87ab8ce58f854819ccacd1f3158',1,'Window']]],
+  ['drawgui_320',['DrawGUI',['../class_g_u_i.html#aa3b301148fd719dc5e5dfaa7109719cf',1,'GUI']]]
 ];

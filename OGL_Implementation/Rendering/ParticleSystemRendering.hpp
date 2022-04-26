@@ -14,6 +14,9 @@
 // GLAD includes
 #include <GLAD\glad.h>
 
+/**
+ * @brief Rendering specialized for particle systems drawing.
+*/
 class ParticleSystemRendering
 {
 public:

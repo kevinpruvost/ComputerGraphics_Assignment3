@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['numtriangles_94',['numTriangles',['../class_obj.html#a9965c3ce5152665a888c3f99f6519817',1,'Obj']]],
-  ['numvertices_95',['numVertices',['../class_obj.html#abceb82031eb8a98248508216ee3061eb',1,'Obj']]]
+  ['numtriangles_111',['numTriangles',['../class_obj.html#a9965c3ce5152665a888c3f99f6519817',1,'Obj']]],
+  ['numvertices_112',['numVertices',['../class_obj.html#abceb82031eb8a98248508216ee3061eb',1,'Obj']]]
 ];

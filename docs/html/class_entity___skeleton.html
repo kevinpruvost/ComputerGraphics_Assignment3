@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Assignment 2 of FCG: Entity_Skeleton Class Reference</title>
+<title>Assignment 3 of FCG: Entity_Skeleton Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,9 +25,9 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="tsinghua_icon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Assignment 2 of FCG
+   <div id="projectname">Assignment 3 of FCG
    </div>
-   <div id="projectbrief">Fundamentals of Computer Graphics - Assignment 2: Planets Rotation</div>
+   <div id="projectbrief">Fundamentals of Computer Graphics - Assignment 3: Stars Rotation</div>
   </td>
  </tr>
  </tbody>
@@ -85,9 +85,13 @@ Inheritance diagram for Entity_Skeleton:</div>
  <div class="center">
   <img src="class_entity___skeleton.png" usemap="#Entity_5FSkeleton_map" alt=""/>
   <map id="Entity_5FSkeleton_map" name="Entity_5FSkeleton_map">
-<area href="class_entity.html" title="Representation of an entity with a mesh, position, rotation, scale. Able to give model matrix." alt="Entity" shape="rect" coords="0,56,98,80"/>
-<area href="class_text3_d.html" title="3D Text class" alt="Text3D" shape="rect" coords="108,56,206,80"/>
-<area href="class_point_light.html" title="Inherits Entity class and represents Lighting points." alt="PointLight" shape="rect" coords="0,112,98,136"/>
+<area href="class_entity.html" title="Representation of an entity with a mesh, position, rotation, scale. Able to give model matrix." alt="Entity" shape="rect" coords="0,56,135,80"/>
+<area href="class_particle_system___base.html" title="Manages the whole particle systems animation &amp; overall process. Inherits Entity." alt="ParticleSystem_Base" shape="rect" coords="145,56,280,80"/>
+<area href="class_particle___base.html" title="Base class for all particles." alt="Particle_Base" shape="rect" coords="290,56,425,80"/>
+<area href="class_text3_d.html" title="3D Text class" alt="Text3D" shape="rect" coords="435,56,570,80"/>
+<area href="class_point_light.html" title="Inherits Entity class and represents Lighting points." alt="PointLight" shape="rect" coords="0,112,135,136"/>
+<area href="class_particle_system___spiral.html" title="Particle System based on Spirals (Archimedes, Fermat &amp; Logarithmic)" alt="ParticleSystem_Spiral" shape="rect" coords="145,112,280,136"/>
+<area href="class_particle___spiral.html" title="Particle specialized for spiral particle systems." alt="Particle_Spiral" shape="rect" coords="290,112,425,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -99,9 +103,9 @@ virtual glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><b>GetModel
 <tr class="memitem:a3e3a26c2f8a4732b80ff6c0987173123"><td class="memItemLeft" align="right" valign="top"><a id="a3e3a26c2f8a4732b80ff6c0987173123"></a>
 virtual glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetLocalPosition</b> () const =0</td></tr>
 <tr class="separator:a3e3a26c2f8a4732b80ff6c0987173123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf3a7e7850a01476c6ac03810adb6d62"><td class="memItemLeft" align="right" valign="top"><a id="aaf3a7e7850a01476c6ac03810adb6d62"></a>
-virtual glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetWorldPosition</b> () const =0</td></tr>
-<tr class="separator:aaf3a7e7850a01476c6ac03810adb6d62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf81ca1d900555149ff3befa08580a61"><td class="memItemLeft" align="right" valign="top"><a id="abf81ca1d900555149ff3befa08580a61"></a>
+glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><b>GetWorldPosition</b> () const</td></tr>
+<tr class="separator:abf81ca1d900555149ff3befa08580a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695961732c1f8265c4211a12494bfd74"><td class="memTemplParams" colspan="2"><a id="a695961732c1f8265c4211a12494bfd74"></a>
 template&lt;Entity_Skeleton_Based E&gt; </td></tr>
 <tr class="memitem:a695961732c1f8265c4211a12494bfd74"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SetParent</b> (E &amp;parent)</td></tr>
@@ -141,6 +145,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveParent</b> ()</
 <tr class="memitem:a1a431583098e9ef50e8d367c06f877dc"><td class="memItemLeft" align="right" valign="top"><a id="a1a431583098e9ef50e8d367c06f877dc"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveChildren</b> ()</td></tr>
 <tr class="separator:a1a431583098e9ef50e8d367c06f877dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a575e84c143f1b69c797046f2bc257ae9"><td class="memItemLeft" align="right" valign="top"><a id="a575e84c143f1b69c797046f2bc257ae9"></a>
+const <a class="el" href="class_entity___skeleton.html">Entity_Skeleton</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>ToSkeleton</b> () const</td></tr>
+<tr class="separator:a575e84c143f1b69c797046f2bc257ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b381ab531a7db3743efe4fd63106f3a"><td class="memItemLeft" align="right" valign="top"><a id="a3b381ab531a7db3743efe4fd63106f3a"></a>
+<a class="el" href="class_entity___skeleton.html">Entity_Skeleton</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>ToSkeleton</b> ()</td></tr>
+<tr class="separator:a3b381ab531a7db3743efe4fd63106f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2dbfb2a3157794f781fbddbd148ecd"><td class="memItemLeft" align="right" valign="top"><a id="a3c2dbfb2a3157794f781fbddbd148ecd"></a>
 const std::vector&lt; <a class="el" href="class_entity___skeleton.html">Entity_Skeleton</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetChildren</b> () const</td></tr>
 <tr class="separator:a3c2dbfb2a3157794f781fbddbd148ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,9 +167,9 @@ std::vector&lt; <a class="el" href="class_entity___skeleton.html">Entity_Skeleto
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basis for all entities. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 2/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8hpp_source.html">Entity_Skeleton.hpp</a></li>
-<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 2/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8cpp.html">Entity_Skeleton.cpp</a></li>
-<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 2/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8inl.html">Entity_Skeleton.inl</a></li>
+<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 3/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8hpp_source.html">Entity_Skeleton.hpp</a></li>
+<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 3/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8cpp.html">Entity_Skeleton.cpp</a></li>
+<li>C:/Users/timmi/OneDrive/Documents/IMPORTANT/Tsinghua/Courses/Spring Semester/Fundamentals of Computer Graphics/Assignments/Assignment 3/OGL_Implementation/Entity/<a class="el" href="_entity___skeleton_8inl.html">Entity_Skeleton.inl</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.9.1-->

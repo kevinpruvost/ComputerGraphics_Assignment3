@@ -9,6 +9,9 @@
 
 #include "../Particle_Base.hpp"
 
+/**
+ * @brief Particle specialized for spiral particle systems
+*/
 class Particle_Spiral : public Particle_Base
 {
 public:

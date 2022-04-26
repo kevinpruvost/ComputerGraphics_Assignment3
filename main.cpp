@@ -68,8 +68,10 @@ int main()
 		*Rendering::shaders.at(Constants::Paths::particleShaderVertex)
 	);
 	spiralSystem.texture = starTexture;
-	spiralSystem.lifeSpan = 15.0f;
-	spiralSystem.speed = 2.0f;
+	spiralSystem.lifeSpan = 30.0f;
+	spiralSystem.polarSpeed = 3.0f;
+	spiralSystem.particleSpeed = 5.0f;
+	spiralSystem.frequency = 5;
 	spiralSystem.maxParticles = 500;
 
 	Camera camera(window->windowWidth(), window->windowHeight(), 0.0f, 0.0f, -50.0f);
@@ -117,7 +119,8 @@ int main()
 		ImGui::SliderFloat3("Position", glm::value_ptr(spiralSystem.pos), 0.0f, 5.0f);
 		ImGui::SliderFloat3("Scale", glm::value_ptr(spiralSystem.scale), 0.0f, 5.0f);
 
-		ImGui::SliderFloat("Speed", &spiralSystem.speed, 0.0f, 20.0f);
+		ImGui::SliderFloat("Polar Speed", &spiralSystem.polarSpeed, 0.0f, 4.0f);
+		ImGui::SliderFloat("Particle Speed", &spiralSystem.particleSpeed, 0.0f, 20.0f);
 
 		ImGui::SliderFloat("Alpha", &spiralSystem.alpha, 0.0f, 5.0f);
 		ImGui::SliderFloat("Beta", &spiralSystem.beta, 0.0f, 5.0f);
